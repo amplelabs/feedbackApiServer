@@ -17,6 +17,7 @@ module.exports.create = (event, context, callback) => {
         // for CORS response header
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers value': 'x-api-key',
       },
       body: 'Couldn\'t create the feedback item.',
     });
@@ -45,6 +46,7 @@ module.exports.create = (event, context, callback) => {
           // for CORS response header
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Credentials': true,
+          'Access-Control-Allow-Headers value': 'x-api-key',
         },
         body: 'Couldn\'t create the feedback item.',
       });
@@ -58,6 +60,7 @@ module.exports.create = (event, context, callback) => {
         // for CORS response header
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers value': 'x-api-key',
       },
       body: JSON.stringify(params.Item),
     };

@@ -9,6 +9,7 @@ provider:
   profile: amplelabs
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -19,7 +20,18 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-
+  apiKeys:
+    # - feedbackKey
+    - ${self:service}-${opt:stage, self:provider.stage}-feedbackKey
+    # - ${env:FEEDBACK_API_KEY} # you can hide it in a serverless variable
+  usagePlan:
+    quota:
+      limit: 5000
+      offset: 2
+      period: MONTH
+    throttle:
+      burstLimit: 200
+      rateLimit: 100
 functions:
   create:
     handler: lambdas/create.create
@@ -28,6 +40,7 @@ functions:
           path: feedback
           method: post
           cors: true
+          private: true
 
   list:
     handler: lambdas/list.list
